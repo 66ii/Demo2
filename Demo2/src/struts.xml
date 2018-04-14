@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+   <constant name="struts.custom.i18n.resources" value="controller.LoginI18N"/>
+	<package name="check" namespace="/check" extends="struts-default">
+		<action name="checkindb" class="controller.CheckLogin" >
+		<result name="success">/login_s2_suc.jsp</result>
+		<result name="input">/login_s2_tags.jsp</result>
+		<result name="suc"  type="redirect">/login_s2_suc.jsp</result>
+		<result name="fail">/login_s2_fail.jsp</result>
+		
+		</action>
+		
+		<action name="stu_list" class="controller.StuAction">
+		<result>/StuList.jsp</result>
+		</action>
+		
+		<action name="checkinobj" class="controller.CheckLoginByObj">
+		<result name="success">/login_obj_suc.jsp</result>
+		<result name="input">/login_obj.jsp</result>
+		</action>
+	
+		<action name="loginI18N" class="controller.LoginI18N">
+		<result name="input">/login_i18n.jsp</result>
+		<result name="fail">/login_i18n.jsp</result>
+		<result name="redirect" type="redirect">/login_i18n_suc.jsp</result>
+		<result name="forward">/login_i18n_suc.jsp</result>
+		</action>
+	</package> 
+</struts>    
