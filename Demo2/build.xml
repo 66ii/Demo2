@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <project basedir="." default="build" name="Demo2">
+    <property name="java.dir" value="src/dao"/>
+   	<property name="build.dir" value="WebRoot/WEB-INF/classes"/>
+   	<property name="lib.dir" location="WebRoot/WEB-INF/lib"/>
+   	
+<path id="cp">
+
+   <pathelement path="${build.dir}"/>
+
+   <fileset dir="${lib.dir}" includes="*.jar"/>
+
+</path>
+   	
+    <target name="getBaseDir">
+    	<echo message="the base1 (value) dir is ${build.dir}"></echo>
+    	<echo message="the base2 (location) dir is ${lib.dir}"></echo>
+    </target>
+    
+     <target name="mkdirs">
+      <mkdir dir="d:/a"/>
+    </target>
+    
+ 	<target name="jdoc">
+       <javadoc sourcepath="src"
+        destdir="d:/a"
+        packagenames="dao.*"
+        encoding="utf-8"
+        docencoding="gbk">
+       </javadoc>
+    </target>
+	
+	 <target name="deledirs">
+      <delete dir="d:/a"/>
+    </target>
+	
+	<target name="com">
+        <!--javac 元素把 java.dir 指定目录下所有 *.java 文件编译成 *.class 文件到d:/a 指定的目录下！
+           	 如果不指定 destdir 属性，那么默认编译到同一目录下。其他属性：
+             classpath：等价于javac 的-classpath 选项。
+             debug="true"：指示编译器应该带调试信息编译源文件。
+             fork="true"：当你希望指定编译器的某些内存选项，或者需要使用一种不同级别的编译器的时候。该属性设置为“true”
+             executable="d:sdk141injavac"：指定一个不同的 javac 可执行文件。
+             memoryMaximumSize="128m"：向上边指定的 javac 传递一个最大内存设置-->
+        <javac srcdir="${java.dir}" destdir="d:/a"/>
+    </target>
+    
+    <!-- java 标签 用于执行class文件 -->
+     <target name="test-compile">  
+        <javac srcdir="${build.dir}" destdir="d:/a" />  
+    </target>  
+    
+<!-- 方法，target -->
+
+<target name="db-start">
+
+  <java classname="org.hsqldb.server.Server" classpathref="cp"
+
+  dir="${lib.dir}" fork="true"/>
+
+</target>
+
+<target name="db-manager">
+
+  <java classname="org.hsqldb.util.DatabaseManagerSwing" classpathref="cp"
+
+  fork="true"/>
+
+</target>
+
+<target name="db-shutdown">
+
+<sql
+
+    driver="org.hsqldb.jdbcDriver"
+
+    url="jdbc:hsqldb:hsql://localhost"
+
+    userid="sa"
+
+    password=""
+
+    classpathref="cp">shutdown</sql>
+
+</target>
+    
+    
+</project>
